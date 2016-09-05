@@ -4,7 +4,7 @@
   <title><![CDATA[Absoluteyl Blog]]></title>
   <link href="http://absoluteyl.github.io/blog/atom.xml" rel="self"/>
   <link href="http://absoluteyl.github.io/blog/"/>
-  <updated>2016-09-05T03:06:19+00:00</updated>
+  <updated>2016-09-05T04:18:58+00:00</updated>
   <id>http://absoluteyl.github.io/blog/</id>
   <author>
     <name><![CDATA[Elsa Lau]]></name>
@@ -12,5 +12,76 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setup Octopress With Github Project Pages]]></title>
+    <link href="http://absoluteyl.github.io/blog/blog/2016/09/05/setup-octopress-with-github-project-pages/"/>
+    <updated>2016-09-05T03:17:19+00:00</updated>
+    <id>http://absoluteyl.github.io/blog/blog/2016/09/05/setup-octopress-with-github-project-pages</id>
+    <content type="html"><![CDATA[<p>Since I already have <a href="https://absoluteyl.github.io">my GitHub Page</a>, I want to setup Octopress blog with URL: <code>absoluteyl.github.io/blog</code>. It turns out there&rsquo;s a function called &ldquo;GitHub Project Pages&rdquo;, all you need to do is to start create a branch named &ldquo;gh-pages&rdquo;, GH Pages will generate a subdirectory for the repo automatically. But Octopress Deploy document somehow confuse me on how to do it, and I took a lot more time than I thought it should be. So I think I should wrote down the entire process for this.</p>
+
+<h3>Setup Octopress</h3>
+
+<!-- more -->
+
+
+<p>Just download octopress from its <a href="https://github.com/imathis/octopress">GitHub Repo</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'>cd octopress</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And then, install bundler and related gems</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install bundler
+</span><span class='line'>bundle install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install default Octopress theme</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake install</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note: There&rsquo;re a lot out-of-date tutorials said that Octopress only supports Ruby 1.9.2, and tells you to use this version instead. According to my experience, Octopress actually runs with later Ruby version now.</p>
+
+<h3>Create Project Repo</h3>
+
+<p>In your GitHub account, create a new repo with name you want to use as subdirectory, then copy repo url to clipboard. While create the new repo, make sure not to tick option &ldquo;Initialize this repository with a README&rdquo;, we need an empty repo.</p>
+
+<h3>Configure your Octopress</h3>
+
+<p>The main config file of Octopress is in _config.yml. For my blog, I only changed <code>title</code>, <code>subtitle</code>, <code>author</code> in the begining.
+You can refer to <a href="http://octopress.org/docs/configuring/">Octopress Document</a> for detail settings</p>
+
+<h3>Deploy with GitHub Project Pages</h3>
+
+<p>Now we&rsquo;re ready to deploy</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This command will let you insert your GitHub url (the one we just copied), rename imathis/octopress from &ldquo;origin&rdquo; to &ldquo;octopress&rdquo; (so you won&rsquo;t push some yourown stuff accidently) and then setup branch &ldquo;gh-pages&rdquo; as default branch in your repo.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate
+</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Following commands will generate your blog files into _deploy folder, add them to git, commit and push them up to your GitHub repo. At last, you need to setup new origin as your GitHub repo and tell git to always push local <code>master</code> to remote <code>gh-pages</code>.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git remote add origin (your repo url)
+</span><span class='line'>git config branch.master.remote origin</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
 </feed>
